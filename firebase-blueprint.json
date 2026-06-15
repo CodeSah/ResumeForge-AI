@@ -1,0 +1,65 @@
+{
+  "entities": {
+    "Resume": {
+      "title": "Resume",
+      "description": "User's compiled ATS resume data",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the owner user"
+        },
+        "personal": {
+          "type": "object",
+          "description": "Contact info, name and display roles",
+          "properties": {
+            "name": { "type": "string" },
+            "email": { "type": "string" },
+            "phone": { "type": "string" },
+            "location": { "type": "string" },
+            "portfolio": { "type": "string" },
+            "github": { "type": "string" },
+            "linkedin": { "type": "string" },
+            "photo": { "type": "string" },
+            "professionalTitle": { "type": "string" },
+            "summary": { "type": "string" }
+          }
+        },
+        "experience": {
+          "type": "array",
+          "description": "List of work, internship, leadership, and research history"
+        },
+        "education": {
+          "type": "array",
+          "description": "Academic records, GPAs, and institutional credentials"
+        },
+        "projects": {
+          "type": "array",
+          "description": "GitHub/portfolio side-projects and dynamic descriptors"
+        },
+        "skills": {
+          "type": "array",
+          "description": "Categorized skill badges"
+        },
+        "publications": { "type": "string" },
+        "honorsAndAwards": { "type": "string" },
+        "showExperience": { "type": "boolean" },
+        "showInternships": { "type": "boolean" },
+        "showResearch": { "type": "boolean" },
+        "showLeadership": { "type": "boolean" },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of last change"
+        }
+      },
+      "required": ["userId", "personal"]
+    }
+  },
+  "firestore": {
+    "/resumes/{userId}": {
+      "schema": "Resume",
+      "description": "Active custom resume document stored securely per user ID"
+    }
+  }
+}

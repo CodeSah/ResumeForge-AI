@@ -1,0 +1,6 @@
+{
+  "name": "AI Resume Builder & ATS Checker",
+  "description": "Create resume templates, analyze ATS compatibility, generate custom career contents, write tailored cover letters, and practice role-based interview preparation using Gemini AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
