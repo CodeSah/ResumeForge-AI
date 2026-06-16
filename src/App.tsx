@@ -6,12 +6,15 @@ import ResumePreview from './components/ResumePreview';
 import ATSChecker from './components/ATSChecker';
 import AIAssistant from './components/AIAssistant';
 import { Sparkles, FileText, CheckSquare, Target, Settings, Download, Palette, RefreshCw, LogOut } from 'lucide-react';
-import { AuthProvider, useAuth } from './lib/AuthContext';
-import LoginPanel from './components/LoginPanel';
 import { fetchUserResume, saveUserResume } from './lib/firestoreService';
 
 function AppContent() {
-  const { user, loading, logout, isDemoMode } = useAuth();
+const user = {
+  uid: "guest-user"
+};
+const loading = false;
+const logout = () => {};
+const isDemoMode = true;
   
   // Local storage binding key with user distinction
   const STORAGE_KEY = user ? `ai_resume_builder_data_${user.uid}` : 'ai_resume_builder_data';
@@ -102,9 +105,9 @@ function AppContent() {
   }
 
   // If not logged in, show the designated LoginPanel
-  if (!user) {
-    return <LoginPanel />;
-  }
+if (!user) {
+  console.log("Guest mode");
+}
 
   // Handle restoring to pristine default mock datasets
   const handleResetToDefault = () => {
@@ -361,9 +364,5 @@ function AppContent() {
 
 // Wrap the main exported component inside the AuthProvider context
 export default function App() {
-  return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
-  );
+  return <AppContent />;
 }
