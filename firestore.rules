@@ -1,7 +1,7 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Global Safety Net (Pillar 1/10)
+    // Global Safety Net (Pillar 1/8)
     match /{document=**} {
       allow read, write: if false;
     }
@@ -15,8 +15,9 @@ service cloud.firestore {
       return isSignedIn() && request.auth.uid == userId;
     }
 
+    // Secure alphanumeric ID matching without confusing regex escape sequences
     function isValidId(id) {
-      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_-]+$');
     }
 
     function incoming() {
@@ -27,21 +28,32 @@ service cloud.firestore {
       return resource.data;
     }
 
-    // Resumes Collection Policy (Rule definitions per security specification)
+    // Validation Blueprint for Resume (Pillar 2)
+    function isValidResume(data) {
+      return data.userId is string && 
+             data.userId == request.auth.uid &&
+             data.personal is map &&
+             data.personal.name is string &&
+             data.personal.name.size() <= 200;
+    }
+
+    // Resumes Collection Policy
     match /resumes/{userId} {
+      // 1. Read / Delete operations
       allow get, delete: if isOwner(userId) && isValidId(userId);
+
+      // secure query enforcer
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
       
-      allow create: if isOwner(userId) && isValidId(userId) &&
-        incoming().userId == userId &&
-        incoming().personal != null &&
-        incoming().personal.name is string &&
-        incoming().personal.name.size() <= 200;
-        
-      allow update: if isOwner(userId) && isValidId(userId) &&
-        incoming().userId == userId &&
-        incoming().personal != null &&
-        incoming().personal.name is string &&
-        incoming().personal.name.size() <= 200;
+      // 2. Create operations
+      allow create: if isOwner(userId) && 
+                      isValidId(userId) && 
+                      isValidResume(incoming());
+         
+      // 3. Update operations
+      allow update: if isOwner(userId) && 
+                      isValidId(userId) && 
+                      isValidResume(incoming());
     }
   }
 }
