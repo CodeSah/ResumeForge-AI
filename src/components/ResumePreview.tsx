@@ -158,9 +158,36 @@ export default function ResumePreview({ data, template, accentColor, experienceS
     }
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
+const handlePrint = () => {
+  const content = document.getElementById("print-resume-canvas");
+
+  const printWindow = window.open("", "_blank");
+
+  if (printWindow && content) {
+    printWindow.document.write(`
+      <html>
+      <head>
+        <title>Resume</title>
+        <style>
+          body{
+            margin:0;
+            padding:20px;
+            background:white;
+          }
+        </style>
+      </head>
+      <body>
+        ${content.innerHTML}
+      </body>
+      </html>
+    `);
+
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+  }
+};
 
   // Dedicated bullet points formatter that parses and outputs elegant, recruiter-approved lists
   const renderDescriptionBullets = (text: string, isSerif: boolean = false) => {
