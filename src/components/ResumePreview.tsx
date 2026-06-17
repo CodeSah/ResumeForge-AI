@@ -1447,9 +1447,9 @@ export default function ResumePreview({ data, template, accentColor, experienceS
     // Helper to render section title with beautiful custom rule divider (headings & spacing reduced)
     const renderSectionHeader = (title: string) => {
       return (
-        <div className="mt-2.5 first:mt-0 font-sans">
+        <div className="mt-6 first:mt-0 font-sans">
           <h2 className="text-[11.5px] font-black tracking-wider text-slate-1000 uppercase leading-none">{title}</h2>
-          <div className={`section-divider h-0 border-b-[1.5px] ${getDividerBorderClass()} w-full mt-1 mb-2.5 transition-all duration-200`}></div>
+          <div className={`section-divider h-0 border-b-[1.5px] ${getDividerBorderClass()} w-full mt-0.5 mb-2 transition-all duration-200`}></div>
         </div>
       );
     };

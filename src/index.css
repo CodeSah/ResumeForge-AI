@@ -87,7 +87,19 @@
   /* Set target page standards: margins are fine-tuned to fit layouts beautifully with decent side padding */
   @page {
     size: portrait;
-    margin: 12mm 15mm 12mm 15mm;
+    margin: 6mm 8mm 6mm 8mm;
+  }
+
+  /* Compact edge padding for standard single page layouts during print to ensure spacious content */
+  #print-resume-canvas .p-10, 
+  #print-resume-canvas .p-\[40px\], 
+  #print-resume-canvas .p-8,
+  #print-resume-canvas .md\:p-12, 
+  #print-resume-canvas .md\:p-10,
+  #print-resume-canvas .p-7,
+  #print-resume-canvas .md\:p-11,
+  #print-resume-canvas .md\:p-14 {
+    padding: 16px 18px !important;
   }
 
   /* Perfect side margin two-column layout for Modern Resume template under print */
@@ -111,7 +123,7 @@
     max-width: 32% !important;
     height: auto !important;
     box-sizing: border-box !important;
-    padding: 24px 16px !important;
+    padding: 16px 12px !important;
     print-color-adjust: exact !important;
     -webkit-print-color-adjust: exact !important;
   }
@@ -125,7 +137,7 @@
     max-width: 68% !important;
     height: auto !important;
     box-sizing: border-box !important;
-    padding: 24px 24px !important;
+    padding: 18px 20px !important;
     background: #ffffff !important;
   }
 
