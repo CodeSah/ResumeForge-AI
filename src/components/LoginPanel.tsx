@@ -106,16 +106,6 @@ export default function LoginPanel() {
             </div>
           )}
 
-          {isDemoMode && (
-            <div className="flex gap-2 items-start p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl text-[10.5px] text-indigo-700 font-medium">
-              <Info size={14} className="shrink-0 mt-0.5 text-indigo-500" />
-              <div className="leading-snug">
-                <span className="font-bold uppercase tracking-wider text-[9px] bg-indigo-100 text-indigo-800 px-1 py-0.5 rounded-md mr-1">Sandbox Active</span>
-                Real Firebase credentials pending terms acceptance. Registered demo credentials will persist local session!
-              </div>
-            </div>
-          )}
-
           {/* Combined Login Options */}
           <form onSubmit={handleSubmit} className="space-y-4">
             
@@ -159,7 +149,7 @@ export default function LoginPanel() {
                 {!isSignUp && (
                   <button 
                     type="button" 
-                    onClick={() => alert("Sandbox password recovery is set to developer default: Enter any password or create a brand new account!")}
+                    onClick={() => alert("Standard offline account recovery: Enter any password or create a brand new account!")}
                     className="text-[10px] text-indigo-600 hover:underline font-semibold"
                   >
                     Forgot Password?
@@ -201,42 +191,6 @@ export default function LoginPanel() {
             </button>
           </form>
 
-          {/* Section Separator */}
-          <div className="relative flex py-2 items-center">
-            <div className="flex-grow border-t border-slate-200"></div>
-            <span className="flex-shrink mx-3 text-[10px] text-slate-400 font-bold uppercase tracking-widest">or</span>
-            <div className="flex-grow border-t border-slate-200"></div>
-          </div>
-
-          {/* Google SSO trigger */}
-          <button
-            type="button"
-            onClick={handleGoogleSignIn}
-            disabled={loading}
-            className="w-full border border-slate-200 bg-white hover:bg-slate-50 rounded-xl py-2.5 px-4 text-xs font-bold text-slate-700 shadow-xs flex items-center justify-center gap-2.5 transition active:scale-98 disabled:opacity-50 cursor-pointer"
-          >
-            {/* Multi-colored Google dynamic vector icon */}
-            <svg className="w-4 h-4" viewBox="0 0 24 24">
-              <path
-                fill="#EA4335"
-                d="M12 5.04c1.61 0 3.05.55 4.19 1.6l3.14-3.14C17.43 1.68 14.93 1 12 1 7.24 1 3.2 3.74 1.25 7.75l3.8 2.94c.95-2.81 3.56-4.65 6.95-4.65z"
-              />
-              <path
-                fill="#4285F4"
-                d="M23.49 12.27c0-.81-.07-1.59-.2-2.34H12v4.44h6.46c-.28 1.47-1.12 2.72-2.38 3.56l3.7 2.87c2.16-2 3.71-4.94 3.71-8.53z"
-              />
-              <path
-                fill="#FBBC05"
-                d="M5.05 10.69c-.24-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29L1.25 7.17c-.81 1.63-1.25 3.46-1.25 5.4s.44 3.77 1.25 5.4l3.8-2.94c-.24-.72-.38-1.49-.38-2.29z"
-              />
-              <path
-                fill="#34A853"
-                d="M12 18.96c-3.39 0-6-1.84-6.95-4.65l-3.8 2.94C3.2 21.26 7.24 24 12 24c3.05 0 5.61-.99 7.49-2.69l-3.71-2.87c-.98.66-2.23 1.08-3.78 1.08z"
-              />
-            </svg>
-            Continue with Google
-          </button>
-
           {/* Interactive footer switch section */}
           <div className="pt-2 text-center text-xs">
             <span className="text-slate-500 font-medium font-sans">
@@ -254,13 +208,6 @@ export default function LoginPanel() {
               {isSignUp ? 'Login Here' : 'Create Account Now'}
             </button>
           </div>
-
-          {!isDemoMode && isSignUp && (
-            <div className="mt-2.5 p-3.5 bg-amber-50/60 border border-amber-100 rounded-xl text-[10px] text-amber-800 leading-normal font-medium">
-              <span className="font-extrabold uppercase mr-1">Firebase Note:</span>
-              Please ensure that the <strong>Email/Password</strong> sign-in method is enabled inside your Firebase console's Authentication dashboard.
-            </div>
-          )}
 
         </div>
       </div>
