@@ -1432,14 +1432,15 @@ export default function ResumePreview({ data, template, accentColor, experienceS
     );
   };
   const renderPersonalFavourite = () => {
-    // Helper to dynamically match rule color to selected accent
-    const getDividerColorClass = () => {
+    // Helper to dynamically match rule color to selected accent (using borders to guarantee print visibility)
+    const getDividerBorderClass = () => {
       switch (accentColor) {
-        case 'indigo': return 'bg-indigo-600';
-        case 'emerald': return 'bg-emerald-600';
-        case 'rose': return 'bg-rose-600';
-        case 'amber': return 'bg-amber-500';
-        case 'slate': return 'bg-slate-800';
+        case 'indigo': return 'border-indigo-600';
+        case 'emerald': return 'border-emerald-600';
+        case 'rose': return 'border-rose-600';
+        case 'amber': return 'border-amber-500';
+        case 'slate': return 'border-slate-800';
+        default: return 'border-indigo-600';
       }
     };
 
@@ -1448,7 +1449,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
       return (
         <div className="mt-2.5 first:mt-0 font-sans">
           <h2 className="text-[11.5px] font-black tracking-wider text-slate-900 uppercase">{title}</h2>
-          <div className={`h-[1px] ${getDividerColorClass()} w-full mt-0.5 mb-1 transition-colors duration-200`}></div>
+          <div className={`h-0 border-b-[1.5px] ${getDividerBorderClass()} w-full mt-0.5 mb-1 transition-all duration-200`}></div>
         </div>
       );
     };
