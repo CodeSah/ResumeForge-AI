@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ResumeData, TemplateType } from '../types';
 import { Printer, Mail, Phone, MapPin, Globe, Github, Linkedin, Award, BookOpen, Briefcase, GraduationCap, Terminal, ExternalLink, User, Heart, Lightbulb, Users } from 'lucide-react';
 
@@ -9,6 +10,8 @@ interface ResumePreviewProps {
 }
 
 export default function ResumePreview({ data, template, accentColor, experienceSplit = 'split' }: ResumePreviewProps) {
+  const [spacing, setSpacing] = useState<'compact' | 'normal' | 'relaxed'>('normal');
+
   // Date format optimization for pristine templates
   const formatResumeDate = (dateStr: string) => {
     if (!dateStr) return '';
@@ -71,7 +74,8 @@ export default function ResumePreview({ data, template, accentColor, experienceS
           lightBg: 'bg-indigo-50/50',
           badgeText: 'text-indigo-600',
           fillColor: '#6366f1',
-          sidebarBg: 'bg-[#1e1b4b]'
+          sidebarBg: 'bg-[#1e1b4b]',
+          sidebarBgHex: '#1e1b4b'
         };
       case 'emerald':
         return {
@@ -84,7 +88,8 @@ export default function ResumePreview({ data, template, accentColor, experienceS
           lightBg: 'bg-emerald-50/50',
           badgeText: 'text-emerald-600',
           fillColor: '#10b981',
-          sidebarBg: 'bg-[#064e3b]'
+          sidebarBg: 'bg-[#064e3b]',
+          sidebarBgHex: '#064e3b'
         };
       case 'rose':
         return {
@@ -97,7 +102,8 @@ export default function ResumePreview({ data, template, accentColor, experienceS
           lightBg: 'bg-rose-50/50',
           badgeText: 'text-rose-600',
           fillColor: '#f43f5e',
-          sidebarBg: 'bg-[#4c0519]'
+          sidebarBg: 'bg-[#4c0519]',
+          sidebarBgHex: '#4c0519'
         };
       case 'amber':
         return {
@@ -110,7 +116,8 @@ export default function ResumePreview({ data, template, accentColor, experienceS
           lightBg: 'bg-amber-50/50',
           badgeText: 'text-amber-600',
           fillColor: '#fbbe16',
-          sidebarBg: 'bg-[#451a03]'
+          sidebarBg: 'bg-[#451a03]',
+          sidebarBgHex: '#451a03'
         };
       case 'slate':
         return {
@@ -123,7 +130,8 @@ export default function ResumePreview({ data, template, accentColor, experienceS
           lightBg: 'bg-slate-50/50',
           badgeText: 'text-slate-705',
           fillColor: '#475569',
-          sidebarBg: 'bg-[#0f172a]'
+          sidebarBg: 'bg-[#0f172a]',
+          sidebarBgHex: '#0f172a'
         };
     }
   };
@@ -426,7 +434,10 @@ export default function ResumePreview({ data, template, accentColor, experienceS
     return (
       <div className="modern-resume-container font-sans text-slate-800 max-w-full bg-white select-text flex flex-col md:flex-row print:flex-row shadow-sm min-h-[900px] print:min-h-0 print:shadow-none">
         {/* Left Column (Slidably adaptive sidebar accent theme!) */}
-        <div className={`w-full md:w-[290px] print:w-[230px] shrink-0 print:shrink-0 ${activeColor.sidebarBg} text-slate-100 p-6 md:p-8 print:p-5 flex flex-col relative overflow-hidden`}>
+        <div 
+          className="w-full md:w-[290px] print:w-[230px] shrink-0 print:shrink-0 text-slate-100 p-6 md:p-8 print:p-5 flex flex-col relative overflow-hidden"
+          style={{ backgroundColor: activeColor.sidebarBgHex }}
+        >
           {/* Big dynamic backdrop accent circle */}
           <div 
             className="absolute -top-16 -left-16 w-48 h-48 rounded-full opacity-90 z-0 transition-colors duration-200" 
@@ -1772,19 +1783,72 @@ export default function ResumePreview({ data, template, accentColor, experienceS
   };
 
   return (
-    <div id="print-resume-canvas" className="w-full relative shadow-lg rounded-xl border border-slate-200 bg-white overflow-hidden self-start print:shadow-none print:rounded-none print:border-none print:bg-white print:w-full">
+    <div 
+      id="print-resume-canvas" 
+      data-spacing={spacing} 
+      className="w-full relative shadow-lg rounded-xl border border-slate-200 bg-white overflow-hidden self-start print:shadow-none print:rounded-none print:border-none print:bg-white print:w-full"
+    >
       {/* Visual Controls ribbon - hidden during print */}
-      <div className="print:hidden w-full bg-slate-50 border-b border-slate-200 px-4 py-3 flex justify-between items-center text-xs">
-        <div className="flex items-center gap-2">
-          <div className={`w-3 h-3 rounded-full ${getAccentBorderClass().replace('border', 'bg')}`}></div>
-          <span className="text-slate-500 font-medium font-sans">
-            Style: <strong className="text-slate-800 uppercase font-mono tracking-tight text-[11px]">{template.replace('_', ' ')}</strong>
-          </span>
+      <div className="print:hidden w-full bg-slate-50 border-b border-slate-200 px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs">
+        <div className="flex flex-wrap items-center gap-4">
+          <div className="flex items-center gap-2">
+            <div className={`w-3 h-3 rounded-full ${getAccentBorderClass().replace('border', 'bg')}`}></div>
+            <span className="text-slate-500 font-medium font-sans">
+              Style: <strong className="text-slate-800 uppercase font-mono tracking-tight text-[11px]">{template.replace('_', ' ')}</strong>
+            </span>
+          </div>
+
+          {/* Spacer border separator */}
+          <div className="hidden sm:block h-4 w-[1px] bg-slate-300"></div>
+
+          {/* Dynamic Spacing Control Tool! */}
+          <div className="flex items-center gap-2">
+            <span className="text-slate-500 font-semibold font-sans">Font & Margin Spacing:</span>
+            <div className="inline-flex rounded-md shadow-sm bg-white border border-slate-250 p-0.5">
+              <button
+                type="button"
+                onClick={() => setSpacing('compact')}
+                className={`px-2.5 py-1 text-[11px] font-bold rounded-md font-sans transition-all cursor-pointer ${
+                  spacing === 'compact'
+                    ? 'bg-slate-800 text-white shadow-sm font-extrabold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                }`}
+                title="Squeeze margins and lines to perfectly fit extensive data on a single page"
+              >
+                Compact (1-Page)
+              </button>
+              <button
+                type="button"
+                onClick={() => setSpacing('normal')}
+                className={`px-2.5 py-1 text-[11px] font-bold rounded-md font-sans transition-all cursor-pointer ${
+                  spacing === 'normal'
+                    ? 'bg-slate-800 text-white shadow-sm font-extrabold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                }`}
+                title="Regular elegant spacing"
+              >
+                Normal
+              </button>
+              <button
+                type="button"
+                onClick={() => setSpacing('relaxed')}
+                className={`px-2.5 py-1 text-[11px] font-bold rounded-md font-sans transition-all cursor-pointer ${
+                  spacing === 'relaxed'
+                    ? 'bg-slate-800 text-white shadow-sm font-extrabold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                }`}
+                title="Wide breathing format"
+              >
+                Relaxed
+              </button>
+            </div>
+          </div>
         </div>
+
         <button
           id="print-trigger-btn"
           onClick={handlePrint}
-          className="flex items-center gap-1.5 font-bold text-slate-700 bg-white border border-slate-300 rounded-md py-1 px-3 hover:bg-slate-50 active:bg-slate-100 transition shadow-sm font-sans cursor-pointer"
+          className="flex items-center gap-1.5 font-bold text-slate-700 bg-white border border-slate-300 rounded-md py-1 px-3 hover:bg-slate-50 active:bg-slate-100 transition shadow-sm font-sans cursor-pointer shrink-0"
         >
           <Printer size={13} />
           Print / PDF Export

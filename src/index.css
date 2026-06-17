@@ -183,3 +183,124 @@
   .personal-favourite-container.accent-amber .section-divider { color: #d97706 !important; border-color: #d97706 !important; }
   .personal-favourite-container.accent-slate .section-divider { color: #1e293b !important; border-color: #1e293b !important; }
 }
+
+/* Custom Content Spacing Systems for screen and print preview live adjustment */
+#print-resume-canvas[data-spacing="compact"] p,
+#print-resume-canvas[data-spacing="compact"] li,
+#print-resume-canvas[data-spacing="compact"] td,
+#print-resume-canvas[data-spacing="compact"] div {
+  line-height: 1.25 !important;
+  margin-bottom: 2px !important;
+}
+
+/* Vertical spacing stacks for sections and blocks */
+#print-resume-canvas[data-spacing="compact"] .space-y-6 > * + *,
+#print-resume-canvas[data-spacing="compact"] .space-y-5 > * + *,
+#print-resume-canvas[data-spacing="compact"] .space-y-4\.5 > * + *,
+#print-resume-canvas[data-spacing="compact"] .space-y-4 > * + * {
+  margin-top: 5px !important;
+}
+
+#print-resume-canvas[data-spacing="compact"] .space-y-3.5 > * + *,
+#print-resume-canvas[data-spacing="compact"] .space-y-3 > * + *,
+#print-resume-canvas[data-spacing="compact"] .space-y-2.5 > * + *,
+#print-resume-canvas[data-spacing="compact"] .space-y-2 > * + * {
+  margin-top: 3px !important;
+}
+
+#print-resume-canvas[data-spacing="compact"] .space-y-1.5 > * + *,
+#print-resume-canvas[data-spacing="compact"] .space-y-1 > * + * {
+  margin-top: 1px !important;
+}
+
+#print-resume-canvas[data-spacing="compact"] .space-y-0.5 > * + * {
+  margin-top: 0px !important;
+}
+
+/* Divider margins reduction */
+#print-resume-canvas[data-spacing="compact"] div[class*="h-[1px]"],
+#print-resume-canvas[data-spacing="compact"] div[class*="h-0"],
+#print-resume-canvas[data-spacing="compact"] div[class*="border-t"],
+#print-resume-canvas[data-spacing="compact"] .section-divider {
+  margin-top: 1px !important;
+  margin-bottom: 2px !important;
+}
+
+#print-resume-canvas[data-spacing="compact"] .mt-6 {
+  margin-top: 10px !important;
+}
+
+#print-resume-canvas[data-spacing="compact"] .mt-5,
+#print-resume-canvas[data-spacing="compact"] .mt-4 {
+  margin-top: 4px !important;
+}
+
+#print-resume-canvas[data-spacing="compact"] .pb-6 {
+  padding-bottom: 6px !important;
+}
+
+#print-resume-canvas[data-spacing="compact"] .p-8,
+#print-resume-canvas[data-spacing="compact"] .md\:p-10,
+#print-resume-canvas[data-spacing="compact"] .p-10,
+#print-resume-canvas[data-spacing="compact"] .md\:p-14,
+#print-resume-canvas[data-spacing="compact"] .md\:p-12,
+#print-resume-canvas[data-spacing="compact"] .p-7,
+#print-resume-canvas[data-spacing="compact"] .md\:p-11 {
+  padding: 16px 14px !important;
+}
+
+#print-resume-canvas[data-spacing="compact"] .modern-resume-container > div:first-child {
+  padding: 12px 10px !important;
+}
+
+#print-resume-canvas[data-spacing="compact"] .modern-resume-container > div:last-child {
+  padding: 12px 14px !important;
+}
+
+/* RELAXED spacing configuration */
+#print-resume-canvas[data-spacing="relaxed"] p,
+#print-resume-canvas[data-spacing="relaxed"] li,
+#print-resume-canvas[data-spacing="relaxed"] td,
+#print-resume-canvas[data-spacing="relaxed"] div {
+  line-height: 1.6 !important;
+  margin-bottom: 6px !important;
+}
+
+#print-resume-canvas[data-spacing="relaxed"] .space-y-6 > * + * {
+  margin-top: 30px !important;
+}
+
+#print-resume-canvas[data-spacing="relaxed"] .space-y-5 > * + *,
+#print-resume-canvas[data-spacing="relaxed"] .space-y-4\.5 > * + * {
+  margin-top: 24px !important;
+}
+
+#print-resume-canvas[data-spacing="relaxed"] .space-y-4 > * + * {
+  margin-top: 20px !important;
+}
+
+#print-resume-canvas[data-spacing="relaxed"] .space-y-3.5 > * + *,
+#print-resume-canvas[data-spacing="relaxed"] .space-y-3 > * + * {
+  margin-top: 16px !important;
+}
+
+#print-resume-canvas[data-spacing="relaxed"] .space-y-2.5 > * + *,
+#print-resume-canvas[data-spacing="relaxed"] .space-y-2 > * + * {
+  margin-top: 12px !important;
+}
+
+#print-resume-canvas[data-spacing="relaxed"] .section-divider {
+  margin-top: 4px !important;
+  margin-bottom: 8px !important;
+}
+
+#print-resume-canvas[data-spacing="relaxed"] .p-8,
+#print-resume-canvas[data-spacing="relaxed"] .md\:p-10,
+#print-resume-canvas[data-spacing="relaxed"] .p-10,
+#print-resume-canvas[data-spacing="relaxed"] .md\:p-14,
+#print-resume-canvas[data-spacing="relaxed"] .md\:p-12,
+#print-resume-canvas[data-spacing="relaxed"] .p-7,
+#print-resume-canvas[data-spacing="relaxed"] .md\:p-11 {
+  padding: 32px 28px !important;
+}
+
