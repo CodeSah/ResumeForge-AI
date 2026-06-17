@@ -6,3 +6,21 @@
   --font-serif: "Playfair Display", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
+@media print {
+
+  body * {
+    visibility: hidden;
+  }
+
+  #print-resume-canvas,
+  #print-resume-canvas * {
+    visibility: visible;
+  }
+
+  #print-resume-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
