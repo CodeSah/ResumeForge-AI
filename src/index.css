@@ -84,62 +84,10 @@
     color-adjust: exact !important;
   }
 
-  /* Restore elegant, normal line spacings and standard typography settings for print */
-  #print-resume-canvas {
-    font-size: 11px !important;
-    line-height: 1.45 !important;
-  }
-
-  #print-resume-canvas p,
-  #print-resume-canvas li,
-  #print-resume-canvas td,
-  #print-resume-canvas div {
-    font-size: 10px !important;
-    line-height: 1.4 !important;
-    margin-bottom: 4px !important;
-  }
-
-  #print-resume-canvas h1 {
-    font-size: 20px !important;
-    line-height: 1.2 !important;
-    margin-bottom: 5px !important;
-  }
-
-  #print-resume-canvas h2 {
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    line-height: 1.3 !important;
-    margin-bottom: 6px !important;
-  }
-
-  #print-resume-canvas h3 {
-    font-size: 11px !important;
-    font-weight: 600 !important;
-    line-height: 1.35 !important;
-    margin-bottom: 3px !important;
-  }
-
-  /* Elegant margins and paddings to prevent overflow without squishing text */
-  #print-resume-canvas .p-10, 
-  #print-resume-canvas .p-\[40px\], 
-  #print-resume-canvas .p-8,
-  #print-resume-canvas .md\:p-12, 
-  #print-resume-canvas .md\:p-10,
-  #print-resume-canvas .p-7,
-  #print-resume-canvas .md\:p-11,
-  #print-resume-canvas .md\:p-14 {
-    padding: 24px 20px !important;
-  }
-
-  #print-resume-canvas .space-y-6 > * + *,
-  #print-resume-canvas .space-y-5 > * + *,
-  #print-resume-canvas .space-y-4 > * + * {
-    margin-top: 10px !important;
-  }
-
-  #print-resume-canvas .space-y-3 > * + *,
-  #print-resume-canvas .space-y-2.5 > * + * {
-    margin-top: 8px !important;
+  /* Set target page standards: margins are fine-tuned to fit layouts beautifully with decent side padding */
+  @page {
+    size: portrait;
+    margin: 12mm 15mm 12mm 15mm;
   }
 
   /* Perfect side margin two-column layout for Modern Resume template under print */
@@ -205,11 +153,5 @@
     background-image: none !important;
     margin-top: 4px !important;
     margin-bottom: 6px !important;
-  }
-
-  /* Set target page standards: margins are fine-tuned to fit layouts on one page */
-  @page {
-    size: portrait;
-    margin: 8mm 10mm 8mm 10mm;
   }
 }
