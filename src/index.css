@@ -84,9 +84,96 @@
     color-adjust: exact !important;
   }
 
+  /* Force compact layouts and tight vertical budgets to guarantee 1-page fit on printing */
+  #print-resume-canvas {
+    font-size: 10.5px !important;
+    line-height: 1.25 !important;
+  }
+  
+  #print-resume-canvas h1 {
+    font-size: 18px !important;
+    margin-top: 1px !important;
+    margin-bottom: 1px !important;
+  }
+
+  #print-resume-canvas h2 {
+    font-size: 11px !important;
+    margin-top: 3px !important;
+    margin-bottom: 1.5px !important;
+  }
+
+  #print-resume-canvas h3 {
+    font-size: 10.5px !important;
+    margin-top: 2px !important;
+    margin-bottom: 1px !important;
+  }
+
+  #print-resume-canvas h4 {
+    font-size: 10px !important;
+    margin-top: 1.5px !important;
+    margin-bottom: 1px !important;
+  }
+
+  /* Shrink paragraph, list, table, and block spacing */
+  #print-resume-canvas p, 
+  #print-resume-canvas li, 
+  #print-resume-canvas span, 
+  #print-resume-canvas div, 
+  #print-resume-canvas table, 
+  #print-resume-canvas tr, 
+  #print-resume-canvas td {
+    line-height: 1.25 !important;
+    margin-top: 0.5px !important;
+    margin-bottom: 0.5px !important;
+  }
+  
+  #print-resume-canvas ul,
+  #print-resume-canvas ol {
+    margin-top: 1px !important;
+    margin-bottom: 1px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  #print-resume-canvas li {
+    padding-top: 0.25px !important;
+    padding-bottom: 0.25px !important;
+  }
+
+  /* Scale outer canvas padding for optimal printable density */
+  #print-resume-canvas .p-10, 
+  #print-resume-canvas .p-[40px], 
+  #print-resume-canvas .p-8,
+  #print-resume-canvas .md\:p-12, 
+  #print-resume-canvas .md\:p-10,
+  #print-resume-canvas .p-7,
+  #print-resume-canvas .md\:p-11,
+  #print-resume-canvas .md\:p-14 {
+    padding: 16px !important;
+  }
+
+  #print-resume-canvas .space-y-6 > * + *,
+  #print-resume-canvas .space-y-5 > * + *,
+  #print-resume-canvas .space-y-4 > * + * {
+    margin-top: 0.5rem !important;
+  }
+
+  #print-resume-canvas .space-y-3 > * + *,
+  #print-resume-canvas .space-y-2.5 > * + * {
+    margin-top: 0.35rem !important;
+  }
+
+  #print-resume-canvas .pb-4.5 {
+    padding-bottom: 4px !important;
+  }
+
+  #print-resume-canvas .pb-3 {
+    padding-bottom: 2px !important;
+  }
+
   /* Set target page standards: margins are fine-tuned to fit the standard 1-page/2-page bounds */
   @page {
     size: portrait;
-    margin: 10mm 15mm 10mm 15mm;
+    margin: 8mm 12mm 8mm 12mm;
   }
 }

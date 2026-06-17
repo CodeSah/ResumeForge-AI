@@ -424,9 +424,9 @@ export default function ResumePreview({ data, template, accentColor, experienceS
     const activeColor = getModernColorClasses();
 
     return (
-      <div className="font-sans text-slate-800 max-w-full bg-white select-text flex flex-col md:flex-row shadow-sm min-h-[900px]">
+      <div className="font-sans text-slate-800 max-w-full bg-white select-text flex flex-col md:flex-row print:flex-row shadow-sm min-h-[900px] print:min-h-0 print:shadow-none">
         {/* Left Column (Slidably adaptive sidebar accent theme!) */}
-        <div className={`w-full md:w-[290px] shrink-0 ${activeColor.sidebarBg} text-slate-100 p-6 md:p-8 flex flex-col relative overflow-hidden`}>
+        <div className={`w-full md:w-[290px] print:w-[230px] shrink-0 print:shrink-0 ${activeColor.sidebarBg} text-slate-100 p-6 md:p-8 print:p-5 flex flex-col relative overflow-hidden`}>
           {/* Big dynamic backdrop accent circle */}
           <div 
             className="absolute -top-16 -left-16 w-48 h-48 rounded-full opacity-90 z-0 transition-colors duration-200" 
@@ -477,7 +477,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
                 >
                   Contact
                 </h3>
-                <div className="h-[1px] bg-slate-700 w-full mt-1"></div>
+                <div className="h-0 border-t border-slate-700 w-full mt-1"></div>
               </div>
             </div>
             
@@ -544,7 +544,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
                   >
                     Skills
                   </h3>
-                  <div className="h-[1px] bg-slate-700 w-full mt-1"></div>
+                  <div className="h-0 border-t border-slate-700 w-full mt-1"></div>
                 </div>
               </div>
 
@@ -584,7 +584,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
                   >
                     Interests
                   </h3>
-                  <div className="h-[1px] bg-slate-700 w-full mt-1"></div>
+                  <div className="h-0 border-t border-slate-700 w-full mt-1"></div>
                 </div>
               </div>
 
@@ -600,7 +600,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
         </div>
 
         {/* Right Column (Pure Crisp White Board) */}
-        <div className="flex-1 bg-white p-7 md:p-11 flex flex-col space-y-6">
+        <div className="flex-1 bg-white p-7 md:p-11 print:p-5 flex flex-col space-y-6 print:space-y-3.5">
           
           {/* PROFILE / SUMMARY */}
           {data.personal.summary && (
@@ -614,7 +614,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
                 </div>
                 <div className="flex-1">
                   <h2 className="text-[13px] font-black tracking-wider text-slate-900 uppercase">Profile</h2>
-                  <div className="h-[1px] bg-slate-200 w-full mt-1.5"></div>
+                  <div className="h-0 border-t border-slate-200 w-full mt-1.5"></div>
                 </div>
               </div>
               <p className="text-[11.5px] leading-relaxed text-slate-700 text-justify pl-1 select-text">
@@ -635,7 +635,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
                 </div>
                 <div className="flex-1">
                   <h2 className="text-[13px] font-black tracking-wider text-slate-900 uppercase">Experience</h2>
-                  <div className="h-[1px] bg-slate-200 w-full mt-1.5"></div>
+                  <div className="h-0 border-t border-slate-200 w-full mt-1.5"></div>
                 </div>
               </div>
 
@@ -681,7 +681,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
                 </div>
                 <div className="flex-1">
                   <h2 className="text-[13px] font-black tracking-wider text-slate-900 uppercase">Internship Experience</h2>
-                  <div className="h-[1px] bg-slate-200 w-full mt-1.5"></div>
+                  <div className="h-0 border-t border-slate-200 w-full mt-1.5"></div>
                 </div>
               </div>
 
@@ -726,7 +726,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
                 </div>
                 <div className="flex-1">
                   <h2 className="text-[13px] font-black tracking-wider text-slate-900 uppercase">Research Experience</h2>
-                  <div className="h-[1px] bg-slate-200 w-full mt-1.5"></div>
+                  <div className="h-0 border-t border-slate-200 w-full mt-1.5"></div>
                 </div>
               </div>
 
@@ -771,7 +771,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
                 </div>
                 <div className="flex-1">
                   <h2 className="text-[13px] font-black tracking-wider text-slate-900 uppercase">Leadership & Service</h2>
-                  <div className="h-[1px] bg-slate-200 w-full mt-1.5"></div>
+                  <div className="h-0 border-t border-slate-200 w-full mt-1.5"></div>
                 </div>
               </div>
 
@@ -816,7 +816,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
                 </div>
                 <div className="flex-1">
                   <h2 className="text-[13px] font-black tracking-wider text-slate-900 uppercase">Education</h2>
-                  <div className="h-[1px] bg-slate-200 w-full mt-1.5"></div>
+                  <div className="h-0 border-t border-slate-200 w-full mt-1.5"></div>
                 </div>
               </div>
 
@@ -847,7 +847,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
                 </div>
                 <div className="flex-1">
                   <h2 className="text-[13px] font-black tracking-wider text-slate-900 uppercase">Projects</h2>
-                  <div className="h-[1px] bg-slate-200 w-full mt-1.5"></div>
+                  <div className="h-0 border-t border-slate-200 w-full mt-1.5"></div>
                 </div>
               </div>
 
@@ -888,7 +888,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
                 </div>
                 <div className="flex-1">
                   <h2 className="text-[13px] font-black tracking-wider text-slate-900 uppercase">Certifications</h2>
-                  <div className="h-[1px] bg-slate-200 w-full mt-1.5"></div>
+                  <div className="h-0 border-t border-slate-200 w-full mt-1.5"></div>
                 </div>
               </div>
 
