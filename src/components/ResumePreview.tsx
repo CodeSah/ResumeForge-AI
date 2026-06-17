@@ -1771,7 +1771,11 @@ export default function ResumePreview({ data, template, accentColor, experienceS
   };
 
   return (
-    <div id="print-resume-canvas" className="w-full relative shadow-lg rounded-xl border border-slate-200 bg-white overflow-hidden self-start">
+    <div
+  id="print-resume-canvas"
+  className="w-full relative bg-white self-start"
+  style={{ height: 'auto', minHeight: 'auto' }}
+>
       {/* Visual Controls ribbon - hidden during print */}
       <div className="print:hidden w-full bg-slate-50 border-b border-slate-200 px-4 py-3 flex justify-between items-center text-xs">
         <div className="flex items-center gap-2">
