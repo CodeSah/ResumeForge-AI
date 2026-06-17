@@ -87,7 +87,7 @@
   /* Set target page standards: margins are fine-tuned to fit layouts beautifully with decent side padding */
   @page {
     size: portrait;
-    margin: 6mm 8mm 6mm 8mm;
+    margin: 8mm !important;
   }
 
   /* Compact edge padding for standard single page layouts during print to ensure spacious content */
@@ -99,7 +99,7 @@
   #print-resume-canvas .p-7,
   #print-resume-canvas .md\:p-11,
   #print-resume-canvas .md\:p-14 {
-    padding: 16px 18px !important;
+    padding: 24px 20px !important;
   }
 
   /* Perfect side margin two-column layout for Modern Resume template under print */
