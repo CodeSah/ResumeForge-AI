@@ -9,6 +9,19 @@ import { Sparkles, FileText, CheckSquare, Target, Settings, Download, Palette, R
 import { AuthProvider, useAuth } from './lib/AuthContext';
 import LoginPanel from './components/LoginPanel';
 import { fetchUserResume, saveUserResume } from './lib/firestoreService';
+import AdsenseBanner from "./components/AdsenseBanner";
+
+function App() {
+  return (
+    <>
+      <AdsenseBanner />
+
+      {/* Your Resume Builder */}
+
+      <ResumeBuilder />
+    </>
+  );
+}
 
 function AppContent() {
   const { user, loading, logout, isDemoMode } = useAuth();
