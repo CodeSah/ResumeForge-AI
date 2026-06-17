@@ -424,7 +424,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
     const activeColor = getModernColorClasses();
 
     return (
-      <div className="font-sans text-slate-800 max-w-full bg-white select-text flex flex-col md:flex-row print:flex-row shadow-sm min-h-[900px] print:min-h-0 print:shadow-none">
+      <div className="modern-resume-container font-sans text-slate-800 max-w-full bg-white select-text flex flex-col md:flex-row print:flex-row shadow-sm min-h-[900px] print:min-h-0 print:shadow-none">
         {/* Left Column (Slidably adaptive sidebar accent theme!) */}
         <div className={`w-full md:w-[290px] print:w-[230px] shrink-0 print:shrink-0 ${activeColor.sidebarBg} text-slate-100 p-6 md:p-8 print:p-5 flex flex-col relative overflow-hidden`}>
           {/* Big dynamic backdrop accent circle */}
