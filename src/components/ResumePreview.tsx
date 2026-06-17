@@ -1791,7 +1791,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
       </div>
 
       {/* Render selected style template */}
-      <div className="w-full overflow-x-auto min-h-[600px]">
+      <div id="print-resume-canvas" className="w-full overflow-visible">
         <div className="relative min-w-[320px]">
           {renderTemplateContent()}
         </div>
