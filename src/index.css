@@ -144,9 +144,9 @@
   }
 
   /* Preserve explicit horizontal divider lines in PDF generator engines */
-  #print-resume-canvas div[class*="h-[1px]"],
-  #print-resume-canvas div[class*="h-0"],
-  #print-resume-canvas div[class*="border-t"] {
+  #print-resume-canvas div[class*="h-[1px]"]:not(.personal-favourite-container *),
+  #print-resume-canvas div[class*="h-0"]:not(.personal-favourite-container *),
+  #print-resume-canvas div[class*="border-t"]:not(.personal-favourite-container *) {
     height: 0 !important;
     border-top: 1.2px solid #cbd5e1 !important;
     background-color: transparent !important;
@@ -154,4 +154,20 @@
     margin-top: 4px !important;
     margin-bottom: 6px !important;
   }
+
+  /* Personal Favourite specific print overrides to make the divider lines look pristine and ultra close to headers */
+  .personal-favourite-container .section-divider {
+    height: 0 !important;
+    border-top: 1.5px solid currentColor !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    margin-top: 1.5px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .personal-favourite-container.accent-indigo .section-divider { color: #4f46e5 !important; border-color: #4f46e5 !important; }
+  .personal-favourite-container.accent-emerald .section-divider { color: #059669 !important; border-color: #059669 !important; }
+  .personal-favourite-container.accent-rose .section-divider { color: #e11d48 !important; border-color: #e11d48 !important; }
+  .personal-favourite-container.accent-amber .section-divider { color: #d97706 !important; border-color: #d97706 !important; }
+  .personal-favourite-container.accent-slate .section-divider { color: #1e293b !important; border-color: #1e293b !important; }
 }

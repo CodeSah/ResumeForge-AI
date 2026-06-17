@@ -1448,8 +1448,8 @@ export default function ResumePreview({ data, template, accentColor, experienceS
     const renderSectionHeader = (title: string) => {
       return (
         <div className="mt-2.5 first:mt-0 font-sans">
-          <h2 className="text-[11.5px] font-black tracking-wider text-slate-900 uppercase">{title}</h2>
-          <div className={`h-0 border-b-[1.5px] ${getDividerBorderClass()} w-full mt-0.5 mb-1 transition-all duration-200`}></div>
+          <h2 className="text-[11.5px] font-black tracking-wider text-slate-1000 uppercase leading-none">{title}</h2>
+          <div className={`section-divider h-0 border-b-[1.5px] ${getDividerBorderClass()} w-full mt-1 mb-2.5 transition-all duration-200`}></div>
         </div>
       );
     };
@@ -1480,7 +1480,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
     const { regularJobs, internships, research, leadership } = getGroupedExperience();
 
     return (
-      <div className="font-sans text-slate-900 space-y-2 max-w-full leading-normal p-8 md:p-10 bg-white select-text text-left">
+      <div className={`personal-favourite-container accent-${accentColor} font-sans text-slate-900 space-y-4.5 max-w-full leading-normal p-8 md:p-10 bg-white select-text text-left`}>
         {/* Header - Aligned Name and floating right Photo */}
         <div className="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-4 pb-1">
           {/* Invisible Spacer left to balance photo on desktop for absolute heading center-alignment */}
