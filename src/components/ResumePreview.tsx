@@ -435,12 +435,12 @@ export default function ResumePreview({ data, template, accentColor, experienceS
       <div className="modern-resume-container font-sans text-slate-800 max-w-full bg-white select-text flex flex-col md:flex-row print:flex-row shadow-sm min-h-[900px] print:min-h-0 print:shadow-none">
         {/* Left Column (Slidably adaptive sidebar accent theme!) */}
         <div 
-          className="w-full md:w-[290px] print:w-[230px] shrink-0 print:shrink-0 text-slate-100 p-6 md:p-8 print:p-5 flex flex-col relative overflow-hidden"
+          className={`w-full md:w-[290px] print:w-[230px] shrink-0 print:shrink-0 text-slate-100 p-6 md:p-8 print:p-5 flex flex-col relative overflow-hidden modern-sidebar theme-${accentColor}`}
           style={{ backgroundColor: activeColor.sidebarBgHex }}
         >
           {/* Big dynamic backdrop accent circle */}
           <div 
-            className="absolute -top-16 -left-16 w-48 h-48 rounded-full opacity-90 z-0 transition-colors duration-200" 
+            className="absolute -top-16 -left-16 w-48 h-48 rounded-full opacity-90 z-0 transition-colors duration-200 backdrop-circle" 
             style={{ backgroundColor: activeColor.accentHex }}
           ></div>
           
@@ -565,9 +565,9 @@ export default function ResumePreview({ data, template, accentColor, experienceS
                   return (
                     <div key={s.id} className="space-y-1">
                       <span className="text-[10.5px] font-semibold text-slate-200 uppercase tracking-wider block">{s.name}</span>
-                      <div className="w-full bg-slate-800 h-[6.5px] rounded-full overflow-hidden font-sans">
+                      <div className="skill-bar-bg w-full bg-slate-800 h-[6.5px] rounded-full overflow-hidden font-sans">
                         <div 
-                          className="h-full rounded-full transition-all duration-300" 
+                          className="skill-bar-fill h-full rounded-full transition-all duration-300" 
                           style={{ width: `${levelVal}%`, backgroundColor: activeColor.accentHex }}
                         ></div>
                       </div>
