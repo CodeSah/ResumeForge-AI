@@ -8,21 +8,32 @@
 }
 @media print {
 
-  html,
-  body {
-    height: auto !important;
-    overflow: visible !important;
+  body * {
+    visibility: hidden;
+  }
+
+  #print-resume-canvas,
+  #print-resume-canvas * {
+    visibility: visible;
   }
 
   #print-resume-canvas {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
     height: auto !important;
-    min-height: auto !important;
-    max-height: none !important;
     overflow: visible !important;
+    box-shadow: none !important;
+    border: none !important;
   }
 
-  #print-resume-canvas * {
-    height: auto;
-    max-height: none;
+  .print\:hidden {
+    display: none !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 10mm;
   }
 }
