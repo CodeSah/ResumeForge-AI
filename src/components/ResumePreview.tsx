@@ -159,34 +159,7 @@ export default function ResumePreview({ data, template, accentColor, experienceS
   };
 
 const handlePrint = () => {
-  const content = document.getElementById("print-resume-canvas");
-
-  const printWindow = window.open("", "_blank");
-
-  if (printWindow && content) {
-    printWindow.document.write(`
-      <html>
-      <head>
-        <title>Resume</title>
-        <style>
-          body{
-            margin:0;
-            padding:20px;
-            background:white;
-          }
-        </style>
-      </head>
-      <body>
-        ${content.innerHTML}
-      </body>
-      </html>
-    `);
-
-    printWindow.document.close();
-    printWindow.focus();
-    printWindow.print();
-    printWindow.close();
-  }
+  window.print();
 };
 
   // Dedicated bullet points formatter that parses and outputs elegant, recruiter-approved lists
@@ -1798,10 +1771,9 @@ const handlePrint = () => {
   };
 
   return (
-    <div
+   <div
   id="print-resume-canvas"
-  className="w-full relative bg-white self-start"
-  style={{ height: 'auto', minHeight: 'auto' }}
+  className="w-full relative bg-white self-start print:shadow-none"
 >
       {/* Visual Controls ribbon - hidden during print */}
       <div className="print:hidden w-full bg-slate-50 border-b border-slate-200 px-4 py-3 flex justify-between items-center text-xs">
