@@ -6,34 +6,70 @@
   --font-serif: "Playfair Display", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
+
+/* 📥 High-Fidelity PDF and Print Stylesheet Controls */
 @media print {
-
-  body * {
-    visibility: hidden;
+  /* Hide any potential interface panels, custom buttons, settings blocks, headers, and footers */
+  header, footer, nav, aside, form, button, select, input, textarea,
+  .print\:hidden,
+  #global-reset-btn,
+  #print-trigger-btn,
+  .xl\:col-span-5,
+  [id^="work-tab-"],
+  [id^="global-"] {
+    display: none !important;
   }
 
-  #print-resume-canvas,
-  #print-resume-canvas * {
-    visibility: visible;
-  }
-
-  #print-resume-canvas {
-    position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
+  /* Reset base document container for full page dimensions */
+  body, html {
+    background-color: #ffffff !important;
+    background-image: none !important;
+    color: #111827 !important;
+    margin: 0 !important;
+    padding: 0 !important;
     width: 100% !important;
     height: auto !important;
-    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Expand print canvas parents to consume the complete screen width */
+  main, .max-w-7xl, .grid, .xl\:col-span-12, .xl\:col-span-7 {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
     box-shadow: none !important;
     border: none !important;
   }
 
-  .print\:hidden {
-    display: none !important;
+  #print-resume-canvas {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    background: #ffffff !important;
   }
 
+  /* Prevent elements from being clipped or hidden inside scrolled panels */
+  div, section, main {
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* Force background colors and brand highlights to retain properties across PDF creators */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Set target page standards: margins are fine-tuned to fit the standard 1-page/2-page bounds */
   @page {
-    size: A4;
-    margin: 10mm;
+    size: portrait;
+    margin: 10mm 15mm 10mm 15mm;
   }
 }

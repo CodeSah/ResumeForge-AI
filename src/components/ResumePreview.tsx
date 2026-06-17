@@ -158,9 +158,9 @@ export default function ResumePreview({ data, template, accentColor, experienceS
     }
   };
 
-const handlePrint = () => {
-  window.print();
-};
+  const handlePrint = () => {
+    window.print();
+  };
 
   // Dedicated bullet points formatter that parses and outputs elegant, recruiter-approved lists
   const renderDescriptionBullets = (text: string, isSerif: boolean = false) => {
@@ -424,7 +424,7 @@ const handlePrint = () => {
     const activeColor = getModernColorClasses();
 
     return (
-      <div className="font-sans text-slate-800 max-w-full bg-white select-text flex flex-col md:flex-row shadow-sm ">
+      <div className="font-sans text-slate-800 max-w-full bg-white select-text flex flex-col md:flex-row shadow-sm min-h-[900px]">
         {/* Left Column (Slidably adaptive sidebar accent theme!) */}
         <div className={`w-full md:w-[290px] shrink-0 ${activeColor.sidebarBg} text-slate-100 p-6 md:p-8 flex flex-col relative overflow-hidden`}>
           {/* Big dynamic backdrop accent circle */}
@@ -1771,10 +1771,7 @@ const handlePrint = () => {
   };
 
   return (
-   <div
-  id="print-resume-canvas"
-  className="w-full relative bg-white self-start print:shadow-none"
->
+    <div id="print-resume-canvas" className="w-full relative shadow-lg rounded-xl border border-slate-200 bg-white overflow-hidden self-start print:shadow-none print:rounded-none print:border-none print:bg-white print:w-full">
       {/* Visual Controls ribbon - hidden during print */}
       <div className="print:hidden w-full bg-slate-50 border-b border-slate-200 px-4 py-3 flex justify-between items-center text-xs">
         <div className="flex items-center gap-2">
@@ -1794,8 +1791,8 @@ const handlePrint = () => {
       </div>
 
       {/* Render selected style template */}
-      <div className="w-full overflow-visible">
-        <div className="relative min-w-[320px]">
+      <div className="w-full overflow-x-auto min-h-[600px] print:overflow-visible print:min-h-0">
+        <div className="relative min-w-[320px] print:min-w-0 print:w-full">
           {renderTemplateContent()}
         </div>
       </div>

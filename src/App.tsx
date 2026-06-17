@@ -6,15 +6,12 @@ import ResumePreview from './components/ResumePreview';
 import ATSChecker from './components/ATSChecker';
 import AIAssistant from './components/AIAssistant';
 import { Sparkles, FileText, CheckSquare, Target, Settings, Download, Palette, RefreshCw, LogOut } from 'lucide-react';
+import { AuthProvider, useAuth } from './lib/AuthContext';
+import LoginPanel from './components/LoginPanel';
 import { fetchUserResume, saveUserResume } from './lib/firestoreService';
 
 function AppContent() {
-const user = {
-  uid: "guest-user"
-};
-const loading = false;
-const logout = () => {};
-const isDemoMode = true;
+  const { user, loading, logout, isDemoMode } = useAuth();
   
   // Local storage binding key with user distinction
   const STORAGE_KEY = user ? `ai_resume_builder_data_${user.uid}` : 'ai_resume_builder_data';
@@ -105,9 +102,9 @@ const isDemoMode = true;
   }
 
   // If not logged in, show the designated LoginPanel
-if (!user) {
-  console.log("Guest mode");
-}
+  if (!user) {
+    return <LoginPanel />;
+  }
 
   // Handle restoring to pristine default mock datasets
   const handleResetToDefault = () => {
@@ -128,9 +125,9 @@ if (!user) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans select-none antialiased">
+    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans select-none antialiased print:bg-white print:text-black">
       {/* 1. Header Bar */}
-      <header className="bg-white border-b border-slate-200 py-3.5 px-4 md:px-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+      <header className="print:hidden bg-white border-b border-slate-200 py-3.5 px-4 md:px-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
         <div className="flex items-center gap-2">
           <div className="p-2 bg-indigo-50 border border-indigo-150 rounded-lg text-indigo-600 font-sans">
             <Sparkles size={20} className="animate-pulse" />
@@ -224,9 +221,9 @@ if (!user) {
       </header>
 
       {/* 2. Main Content Grid Layout */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 grid grid-cols-1 xl:grid-cols-12 gap-6 leading-relaxed">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 grid grid-cols-1 xl:grid-cols-12 gap-6 leading-relaxed print:block print:w-full print:p-0 print:m-0">
         {/* Left Control Workspace panel - spans 5 of 12 columns */}
-        <div className="xl:col-span-5 flex flex-col gap-6">
+        <div className="xl:col-span-5 flex flex-col gap-6 print:hidden">
           {/* Main Tab controller segments */}
           <div className="bg-white p-1 rounded-xl border border-slate-200 grid grid-cols-3 gap-1">
             <button
@@ -282,9 +279,9 @@ if (!user) {
         </div>
 
         {/* Right Preview Showcase Canvas - spans 7 of 12 columns */}
-        <div className="xl:col-span-7 flex flex-col gap-4 self-start xl:sticky xl:top-6">
+        <div className="xl:col-span-7 flex flex-col gap-4 self-start xl:sticky xl:top-6 print:w-full print:p-0 print:m-0 print:static print:block">
           {/* Custom style customization banner */}
-          <div className="bg-white rounded-xl border border-slate-200 p-4 space-y-3 font-sans text-xs">
+          <div className="bg-white rounded-xl border border-slate-200 p-4 space-y-3 font-sans text-xs print:hidden">
             <div className="flex items-center gap-1 text-slate-700 font-bold tracking-tight">
               <Palette size={14} className="text-indigo-500" />
               <span>Visual Layout Customization (Live Preview)</span>
@@ -355,7 +352,7 @@ if (!user) {
       </main>
 
       {/* Footer credits bar */}
-      <footer className="bg-white border-t border-slate-200 py-4 px-4 text-center text-[10.5px] text-slate-500 font-sans tracking-wide">
+      <footer className="bg-white border-t border-slate-200 py-4 px-4 text-center text-[10.5px] text-slate-500 font-sans tracking-wide print:hidden">
         &copy; 2026 ResumeForge AI. Developed by <strong>Khushi Kumari Sah</strong>. All rights reserved.
       </footer>
     </div>
@@ -364,5 +361,9 @@ if (!user) {
 
 // Wrap the main exported component inside the AuthProvider context
 export default function App() {
-  return <AppContent />;
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
 }
