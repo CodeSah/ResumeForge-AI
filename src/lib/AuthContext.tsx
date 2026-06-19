@@ -52,7 +52,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             photoURL: firebaseUser.photoURL,
           });
         } else {
-          setUser(null);
+          setUser({
+            uid: 'local-resume-user-id',
+            email: 'local@resumeforge.local',
+            displayName: 'Local Guest User',
+            photoURL: null
+          });
         }
         setLoading(false);
       });
@@ -65,7 +70,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setUser(JSON.parse(savedUser));
         } catch (e) {
           console.error('Failed to parse sandboxed user', e);
+          const defaultUser: AuthUser = {
+            uid: 'local-resume-user-id',
+            email: 'local@resumeforge.local',
+            displayName: 'Local Guest User',
+            photoURL: null
+          };
+          setUser(defaultUser);
+          localStorage.setItem(DEMO_USER_KEY, JSON.stringify(defaultUser));
         }
+      } else {
+        const defaultUser: AuthUser = {
+          uid: 'local-resume-user-id',
+          email: 'local@resumeforge.local',
+          displayName: 'Local Guest User',
+          photoURL: null
+        };
+        setUser(defaultUser);
+        localStorage.setItem(DEMO_USER_KEY, JSON.stringify(defaultUser));
       }
       setLoading(false);
     }
@@ -201,8 +223,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (isRealFirebase && auth) {
         await signOut(auth);
       } else {
-        localStorage.removeItem(DEMO_USER_KEY);
-        setUser(null);
+        const defaultUser: AuthUser = {
+          uid: 'local-resume-user-id',
+          email: 'local@resumeforge.local',
+          displayName: 'Local Guest User',
+          photoURL: null
+        };
+        setUser(defaultUser);
+        localStorage.setItem(DEMO_USER_KEY, JSON.stringify(defaultUser));
       }
     } catch (err: any) {
       console.error(err);

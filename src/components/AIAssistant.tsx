@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ResumeData, CoverLetterResult, InterviewQuestion, JobMatchResult } from '../types';
 import { sampleJobDescription } from '../data/defaultData';
 import { FileText, Award, Calendar, Lightbulb, Copy, Check, MessageSquare, Briefcase, DollarSign, Target, Loader2, Sparkles, BookOpen, Clock } from 'lucide-react';
+import { getApiUrl } from '../lib/api';
 
 interface AIAssistantProps {
   data: ResumeData;
@@ -49,7 +50,7 @@ export default function AIAssistant({ data }: AIAssistantProps) {
     setClResult(null);
 
     try {
-      const res = await fetch('/api/generate-cover-letter', {
+      const res = await fetch(getApiUrl('/api/generate-cover-letter'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -85,7 +86,7 @@ export default function AIAssistant({ data }: AIAssistantProps) {
     setIpRevealedParts({});
 
     try {
-      const res = await fetch('/api/generate-interview-prep', {
+      const res = await fetch(getApiUrl('/api/generate-interview-prep'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -117,7 +118,7 @@ export default function AIAssistant({ data }: AIAssistantProps) {
     setJmResult(null);
 
     try {
-      const res = await fetch('/api/real-time-job-matching', {
+      const res = await fetch(getApiUrl('/api/real-time-job-matching'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ resumeData: data })

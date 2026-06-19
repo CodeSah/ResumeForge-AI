@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ResumeData, ATSResult } from '../types';
 import { sampleJobDescription } from '../data/defaultData';
 import { CheckCircle2, XCircle, AlertTriangle, Sparkles, HelpCircle, Loader2, RefreshCw } from 'lucide-react';
+import { getApiUrl } from '../lib/api';
 
 interface ATSCheckerProps {
   data: ResumeData;
@@ -22,7 +23,7 @@ export default function ATSChecker({ data, onApplyOptimizedSummary }: ATSChecker
     setSuccessMsg(null);
 
     try {
-      const response = await fetch('/api/ats-check', {
+      const response = await fetch(getApiUrl('/api/ats-check'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

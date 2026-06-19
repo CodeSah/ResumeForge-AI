@@ -1,45 +1,61 @@
-import express from 'express';
-import path from 'path';
-import cors from 'cors';
-import { createServer as createViteServer } from 'vite';
-import { GoogleGenAI, Type } from '@google/genai';
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 
-const app = express();
-const PORT = 3000;
-
-app.use(cors());
-app.use(express.json({ limit: '10mb' }));
-
-// Helper to configure lazy initialization of Google Gen AI SDK
-let aiClient: GoogleGenAI | null = null;
-function getGenAI(): GoogleGenAI {
+// server.ts
+var import_express = __toESM(require("express"), 1);
+var import_path = __toESM(require("path"), 1);
+var import_cors = __toESM(require("cors"), 1);
+var import_vite = require("vite");
+var import_genai = require("@google/genai");
+var app = (0, import_express.default)();
+var PORT = 3e3;
+app.use((0, import_cors.default)());
+app.use(import_express.default.json({ limit: "10mb" }));
+var aiClient = null;
+function getGenAI() {
   if (!aiClient) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      throw new Error('GEMINI_API_KEY is not defined in environment variables. Please add it in Settings > Secrets.');
+      throw new Error("GEMINI_API_KEY is not defined in environment variables. Please add it in Settings > Secrets.");
     }
-    aiClient = new GoogleGenAI({
-      apiKey: apiKey,
+    aiClient = new import_genai.GoogleGenAI({
+      apiKey,
       httpOptions: {
         headers: {
-          'User-Agent': 'aistudio-build',
-        },
-      },
+          "User-Agent": "aistudio-build"
+        }
+      }
     });
   }
   return aiClient;
 }
-
-// 1. ATS Score Checker and Optimizer Endpoint
-app.post('/api/ats-check', async (req, res) => {
+app.post("/api/ats-check", async (req, res) => {
   try {
     const { resumeData, jobDescription } = req.body;
     if (!resumeData || !jobDescription) {
-      return res.status(400).json({ error: 'Resume data and target job description are both required.' });
+      return res.status(400).json({ error: "Resume data and target job description are both required." });
     }
-
     const ai = getGenAI();
-
     const prompt = `
 You are an expert applicant tracking system (ATS) parser and high-level recruiter.
 Evaluate the candidate's resume data against the provided target job description.
@@ -51,7 +67,7 @@ Target Job Description:
 ${jobDescription}
 
 Please perform a strict analysis and output your results strictly as a single JSON object.
-Do NOT use markdown layout wrappers (like \`\`\`json ... \`\`\`) in your response text – return ONLY raw JSON that matches this exact schema:
+Do NOT use markdown layout wrappers (like \`\`\`json ... \`\`\`) in your response text \u2013 return ONLY raw JSON that matches this exact schema:
 {
   "score": number (total ATS compatibility score from 0 to 100),
   "matchScore": number (skill/experience matching sub-score from 0 to 100),
@@ -66,40 +82,34 @@ Do NOT use markdown layout wrappers (like \`\`\`json ... \`\`\`) in your respons
   "roleExplanation": "A short, encouraging explanation of why this match tier was given and the overall outlook."
 }
 `;
-
     const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash',
+      model: "gemini-3.5-flash",
       contents: prompt,
       config: {
-        responseMimeType: 'application/json',
-      },
+        responseMimeType: "application/json"
+      }
     });
-
-    const resultText = response.text || '{}';
+    const resultText = response.text || "{}";
     res.json(JSON.parse(resultText));
-  } catch (error: any) {
-    console.error('Error in /api/ats-check:', error);
-    res.status(500).json({ error: error.message || 'Failed to complete ATS review.' });
+  } catch (error) {
+    console.error("Error in /api/ats-check:", error);
+    res.status(500).json({ error: error.message || "Failed to complete ATS review." });
   }
 });
-
-// 2. Resume AI Content Generator / Enhancer Endpoint
-app.post('/api/resume-enhance', async (req, res) => {
+app.post("/api/resume-enhance", async (req, res) => {
   try {
     const { section, currentText, roleTarget, contextText } = req.body;
     if (!section) {
-      return res.status(400).json({ error: 'Enhancement section type is required.' });
+      return res.status(400).json({ error: "Enhancement section type is required." });
     }
-
     const ai = getGenAI();
-
     const prompt = `
 You are a top-tier global resume writer and career coach.
-Enhance the following text for a resume ${section} section. The target role is "${roleTarget || 'Professional'}".
-Additional context of other experiences: ${contextText || 'None'}.
+Enhance the following text for a resume ${section} section. The target role is "${roleTarget || "Professional"}".
+Additional context of other experiences: ${contextText || "None"}.
 
 Current Text:
-"${currentText || '(Empty - please write from scratch)'}"
+"${currentText || "(Empty - please write from scratch)"}"
 
 Rewrite this with these principles:
 - Start with powerful action verbs in the past tense (where applicable).
@@ -116,33 +126,27 @@ Response scheme:
   "alternativePhrasings": ["Alternative 1", "Alternative 2"]
 }
 `;
-
     const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash',
+      model: "gemini-3.5-flash",
       contents: prompt,
       config: {
-        responseMimeType: 'application/json',
-      },
+        responseMimeType: "application/json"
+      }
     });
-
-    const resultText = response.text || '{}';
+    const resultText = response.text || "{}";
     res.json(JSON.parse(resultText));
-  } catch (error: any) {
-    console.error('Error in /api/resume-enhance:', error);
-    res.status(500).json({ error: error.message || 'Failed to generate enhanced bio.' });
+  } catch (error) {
+    console.error("Error in /api/resume-enhance:", error);
+    res.status(500).json({ error: error.message || "Failed to generate enhanced bio." });
   }
 });
-
-// 3. Tailored Cover Letter Generator Endpoint
-app.post('/api/generate-cover-letter', async (req, res) => {
+app.post("/api/generate-cover-letter", async (req, res) => {
   try {
     const { resumeData, jobDescription, recipientName, companyName, jobTitle } = req.body;
     if (!resumeData || !jobDescription) {
-      return res.status(400).json({ error: 'Resume data and target job description are both required.' });
+      return res.status(400).json({ error: "Resume data and target job description are both required." });
     }
-
     const ai = getGenAI();
-
     const prompt = `
 You are an elegant, highly persuasive professional letter writer.
 Create a beautifully tailored, modern cover letter matching this candidate's credentials to the target Job Description.
@@ -157,9 +161,9 @@ Recent Experience:
 ${JSON.stringify(resumeData.experience, null, 2)}
 
 Target Details:
-Job Title: ${jobTitle || 'Target Position'}
-Company Name: ${companyName || 'Target Company'}
-Recipient: ${recipientName || 'Hiring Manager / Recruiting Team'}
+Job Title: ${jobTitle || "Target Position"}
+Company Name: ${companyName || "Target Company"}
+Recipient: ${recipientName || "Hiring Manager / Recruiting Team"}
 
 Job Description:
 ${jobDescription}
@@ -178,42 +182,36 @@ Response scheme:
   "content": "A single formatted multi-line string containing the complete cover letter draft, including address blocks, dates, and sign-offs."
 }
 `;
-
     const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash',
+      model: "gemini-3.5-flash",
       contents: prompt,
       config: {
-        responseMimeType: 'application/json',
-      },
+        responseMimeType: "application/json"
+      }
     });
-
-    const resultText = response.text || '{}';
+    const resultText = response.text || "{}";
     res.json(JSON.parse(resultText));
-  } catch (error: any) {
-    console.error('Error in /api/generate-cover-letter:', error);
-    res.status(500).json({ error: error.message || 'Failed to generate tailored cover letter.' });
+  } catch (error) {
+    console.error("Error in /api/generate-cover-letter:", error);
+    res.status(500).json({ error: error.message || "Failed to generate tailored cover letter." });
   }
 });
-
-// 4. Role-Specific Technical & Behavioral Interview Prep Generator
-app.post('/api/generate-interview-prep', async (req, res) => {
+app.post("/api/generate-interview-prep", async (req, res) => {
   try {
     const { resumeData, targetRole, jobDescription } = req.body;
     if (!resumeData) {
-      return res.status(400).json({ error: 'Resume data is required.' });
+      return res.status(400).json({ error: "Resume data is required." });
     }
-
     const ai = getGenAI();
-
     const prompt = `
 You are a senior hiring manager and technical engineering interviewer at a top company.
-Draft 4 customized, high-yield interview questions designed SPECIFICALLY for this candidate's background when applying for target role "${targetRole || 'the specified role'}".
+Draft 4 customized, high-yield interview questions designed SPECIFICALLY for this candidate's background when applying for target role "${targetRole || "the specified role"}".
 
 Candidate Profile:
 ${JSON.stringify(resumeData, null, 2)}
 
 Job Description Context (if any):
-${jobDescription || 'Not specified'}
+${jobDescription || "Not specified"}
 
 Provide 4 detailed questions containing:
 - 2 Role-based technical or strategic scenarios based on actual technologies or skills in their resume.
@@ -233,33 +231,27 @@ Response schema:
   }
 ]
 `;
-
     const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash',
+      model: "gemini-3.5-flash",
       contents: prompt,
       config: {
-        responseMimeType: 'application/json',
-      },
+        responseMimeType: "application/json"
+      }
     });
-
-    const resultText = response.text || '[]';
+    const resultText = response.text || "[]";
     res.json(JSON.parse(resultText));
-  } catch (error: any) {
-    console.error('Error in /api/generate-interview-prep:', error);
-    res.status(500).json({ error: error.message || 'Failed to generate interview prep toolkit.' });
+  } catch (error) {
+    console.error("Error in /api/generate-interview-prep:", error);
+    res.status(500).json({ error: error.message || "Failed to generate interview prep toolkit." });
   }
 });
-
-// 5. Real-Time Job Matching & Strategic Career Path Planner
-app.post('/api/real-time-job-matching', async (req, res) => {
+app.post("/api/real-time-job-matching", async (req, res) => {
   try {
     const { resumeData } = req.body;
     if (!resumeData) {
-      return res.status(400).json({ error: 'Resume data is required.' });
+      return res.status(400).json({ error: "Resume data is required." });
     }
-
     const ai = getGenAI();
-
     const prompt = `
 You are an expert recruitment consultant and modern talent acquisition researcher.
 Based on the candidate's current skills, experience, projects, and strengths, evaluate their immediate career prospects.
@@ -282,43 +274,37 @@ Response schema:
   }
 ]
 `;
-
     const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash',
+      model: "gemini-3.5-flash",
       contents: prompt,
       config: {
-        responseMimeType: 'application/json',
-      },
+        responseMimeType: "application/json"
+      }
     });
-
-    const resultText = response.text || '[]';
+    const resultText = response.text || "[]";
     res.json(JSON.parse(resultText));
-  } catch (error: any) {
-    console.error('Error in /api/real-time-job-matching:', error);
-    res.status(500).json({ error: error.message || 'Failed to complete career matching analysis.' });
+  } catch (error) {
+    console.error("Error in /api/real-time-job-matching:", error);
+    res.status(500).json({ error: error.message || "Failed to complete career matching analysis." });
   }
 });
-
-// Vite Middleware integrated after API routes
 async function startServer() {
-  if (process.env.NODE_ENV !== 'production') {
-    const vite = await createViteServer({
+  if (process.env.NODE_ENV !== "production") {
+    const vite = await (0, import_vite.createServer)({
       server: { middlewareMode: true },
-      appType: 'spa',
+      appType: "spa"
     });
     app.use(vite.middlewares);
   } else {
-    const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
-    // SPA routing fallback
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
+    const distPath = import_path.default.join(process.cwd(), "dist");
+    app.use(import_express.default.static(distPath));
+    app.get("*", (req, res) => {
+      res.sendFile(import_path.default.join(distPath, "index.html"));
     });
   }
-
-  app.listen(PORT, '0.0.0.0', () => {
+  app.listen(PORT, "0.0.0.0", () => {
     console.log(`AI Resume + ATS Server listening on port ${PORT}`);
   });
 }
-
 startServer();
+//# sourceMappingURL=server.cjs.map

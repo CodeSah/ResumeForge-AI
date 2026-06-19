@@ -183,38 +183,10 @@ function AppContent() {
           {/* Divider */}
           <div className="h-5 w-[1px] bg-slate-200 hidden sm:block"></div>
 
-          {/* Authenticated User Badge & Logout Option */}
-          <div className="flex items-center gap-2.5 bg-slate-50/80 border border-slate-200 rounded-lg pl-2.5 pr-1.5 py-1 font-sans">
-            {user.photoURL ? (
-              <img 
-                src={user.photoURL} 
-                alt="Avatar" 
-                className="w-5.5 h-5.5 rounded-full border border-slate-200 object-cover shrink-0"
-                referrerPolicy="no-referrer"
-              />
-            ) : (
-              <div className="w-5.5 h-5.5 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0">
-                {user.displayName ? user.displayName.slice(0, 2).toUpperCase() : (user.email ? user.email.slice(0, 2).toUpperCase() : 'US')}
-              </div>
-            )}
-            
-            <div className="flex flex-col text-left max-w-[110px] truncate leading-tight">
-              <span className="font-extrabold text-slate-800 text-[10.5px] truncate">
-                {user.displayName || 'Developer Member'}
-              </span>
-              <span className="text-[8.5px] text-slate-400 font-semibold truncate">
-                {user.email || 'sandbox@resumeforge.local'}
-              </span>
-            </div>
-
-            <button
-              onClick={() => logout()}
-              type="button"
-              className="p-1 text-slate-400 hover:text-rose-600 rounded-md hover:bg-slate-100 transition cursor-pointer"
-              title="Logout from console"
-            >
-              <LogOut size={13} />
-            </button>
+          {/* Local Storage Auto-Saving Indicator Badge */}
+          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 shadow-2xs rounded-lg px-2.5 py-1.5 font-sans">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+            <span className="font-extrabold text-slate-700 text-[10.5px]">Local Device Save Active</span>
           </div>
 
         </div>

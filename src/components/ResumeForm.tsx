@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ResumeData, WorkExperience, Education, Project, Skill } from '../types';
 import { Plus, Trash2, Sparkles, AlertCircle, Check, HelpCircle, Loader2 } from 'lucide-react';
+import { getApiUrl } from '../lib/api';
 
 interface ResumeFormProps {
   data: ResumeData;
@@ -168,7 +169,7 @@ export default function ResumeForm({ data, onChange }: ResumeFormProps) {
     setAiResult(null);
 
     try {
-      const response = await fetch('/api/resume-enhance', {
+      const response = await fetch(getApiUrl('/api/resume-enhance'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -225,7 +226,7 @@ export default function ResumeForm({ data, onChange }: ResumeFormProps) {
           <div className="flex justify-between items-center mb-3">
             <span className="flex items-center gap-1.5 text-xs font-bold tracking-widest text-indigo-300 uppercase">
               <Sparkles size={14} className="text-amber-400" />
-              Gemini AI Content Optimizer
+              AI Professional Content Optimizer
             </span>
             <button
               onClick={() => setActiveAiSection(null)}
@@ -505,7 +506,7 @@ export default function ResumeForm({ data, onChange }: ResumeFormProps) {
                 id="sum-ai-polish"
               >
                 <Sparkles size={11} className="text-amber-500" />
-                Rewrite with Gemini Gemini AI
+                Rewrite with AI Copilot
               </button>
             </div>
             <textarea
@@ -684,7 +685,7 @@ export default function ResumeForm({ data, onChange }: ResumeFormProps) {
                       className="flex items-center gap-1.5 text-indigo-600 hover:text-indigo-700 font-bold text-[11px]"
                     >
                       <Sparkles size={11} className="text-amber-500" />
-                      Optimize accomplishments with Gemini AI
+                      Optimize accomplishments with AI
                     </button>
                   </div>
                   <textarea
